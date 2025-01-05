@@ -48,12 +48,12 @@ const config: DocsThemeConfig = {
         </div>
     ),
     project: {
-        link: 'https://github.com/TrustedService/Trusted-Studios-Docs',
+        link: 'https://github.com/Trusted-Studios/Trusted-Studios.github.io',
     },
     chat: {
         link: 'https://discord.gg/hmmM89nCdX',
     },
-    docsRepositoryBase: 'https://github.com/TrustedService/Trusted-Studios-Docs/blob/main',
+    docsRepositoryBase: 'https://github.com/Trusted-Studios/Trusted-Studios.github.io/blob/main',
     footer: {
         text: 'Trusted Studios',
     },
