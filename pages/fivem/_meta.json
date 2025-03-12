@@ -18,7 +18,7 @@
     "farming": "Advanced Farming",
     "job_garage": "Advanced Job Garage",
     "trucker-plus": "Advanced Trucker",
-
+    "jetsam": "Jetsam Job",
     "free": {
         "type": "separator",
         "title": "Free Scripts"
