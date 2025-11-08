@@ -1,0 +1,44 @@
+import { Callout } from 'nextra/components';
+import { Tabs, Tab} from 'nextra-theme-docs';
+
+# Bridge
+
+## GetPlayerData
+Retrieves the player data from your framework.
+
+```lua
+Bridge.GetPlayerData(source)
+```
+
+- source: `number`
+- returns: `table`
+
+## GetPlayerLevel
+Fetches the player's level from metadata.
+
+```lua
+Bridge.GetPlayerLevel(xPlayer)
+```
+
+- xPlayer: `table`
+- returns: `number`
+
+## SavePlayerLevel
+Saves the player's level in metadata.
+
+```lua
+Bridge.SavePlayerLevel(source, level)
+```
+
+- source: `number`
+- level: `number`
+
+## Payout
+Adds money to the player's account.
+
+```lua
+Bridge.Payout(source, amount)
+```
+
+- source: `number`
+- amount: `number`

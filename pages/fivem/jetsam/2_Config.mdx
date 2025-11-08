@@ -1,0 +1,161 @@
+import { Callout } from 'nextra/components';
+import { Tabs, Tab} from 'nextra-theme-docs';
+
+# Config
+
+## Framework
+Set the framework to use.
+
+<Tabs items={['ESX', "OX", "Other"]}>
+    <Tab>
+        ```lua
+        Config.Framework = "ESX"
+        ```
+    </Tab>
+    <Tab>
+        ```lua
+        Config.Framework = "OX"
+        ```
+    </Tab>
+    <Tab>
+        ```lua
+        Config.Framework = "Other"
+        ```
+    </Tab>
+</Tabs>
+
+- Framework: `string`
+
+
+## Job
+Enable or disable the job requirement.
+
+```lua
+Config.Job = false
+```
+
+- Job: `boolean`
+
+
+## Uniform
+Defines the uniforms for male and female workers.
+
+```lua
+Config.Uniform = {
+    male = {},
+    female = {}
+}
+```
+
+- Uniform: `table`
+
+
+## Start Locations
+Defines the start locations for the job.
+
+```lua
+Config.StartLocations = {
+    ['docs-A'] = vec4(813.58, -2982.70, 6.02, 267.61),
+}
+```
+
+- \[key: string\]: `vec4`
+
+
+## Garage Locations
+Defines the garage locations and spawn points.
+
+```lua
+Config.GarageLocations = {
+    ['docs-A'] = {
+        coords = vec4(805.35, -2949.70, 6.02, 7.41),
+        spawn = vec4(799.57, -2942.66, 5.91, 262.37)
+    }
+}
+```
+
+- \[key: string\]: `table`
+  - coords: `vec4`
+  - spawn: `vec4`
+
+
+
+## Vehicles
+Defines the available job vehicles and their level requirements.
+
+```lua
+Config.Vehicles = {
+    {model = 'forklift', label = 'Forklift', level = 15},
+    {model = 'bison', label = 'Bison', level = 0},
+}
+```
+
+- model: `string`
+- label: `string`
+- level: `number`
+
+
+
+## Required Levels
+Specifies the level requirements for different tasks.
+
+```lua
+Config.RequiredLevels = {
+    Forklift = 15,
+    Maintenance = 5,
+    Inventory = 0
+}
+```
+
+- \[key: string\]: `number`
+
+
+
+## Callouts
+Defines the callout locations and objectives for different jobs.
+
+```lua
+Config.Callouts = {
+    Forklift = {
+        {
+            pickups = {
+                {coords = vec4(834.67, -2928.56, 5.90, 85.96), model = 'prop_boxpile_07d'},
+                {coords = vec4(1167.02, -2973.48, 5.90, 276.29), model = 'prop_boxpile_07d'},
+            },
+            deliver = vec3(1000.86, -2903.29, 5.90)
+        }
+    },
+    Maintenance = {
+        {
+            locations = {
+               vec4(823.80, -2993.90, 6.02, 90.47),
+               vec4(845.12, -3024.11, 5.74, 165.37)
+            }
+        }
+    }
+}
+```
+
+- \[key: string\]: `table`
+  - pickups: `table`
+    - coords: `vec4`
+    - model: `string`
+  - deliver: `vec3`
+  - locations: `vec4[]`
+
+
+
+## Translation
+Stores text translations for UI messages.
+
+```lua
+Config.Translation = {
+    ['garage'] = "Garage",
+    ['required_level'] = "Required Level: %s",
+    ['job_menu'] = "Job Menu",
+    ['callout_completed'] = "You have completed the callout",
+    ...
+}
+```
+
+- \[key: string\]: `string`

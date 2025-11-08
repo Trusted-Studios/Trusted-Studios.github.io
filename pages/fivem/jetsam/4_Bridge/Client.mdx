@@ -1,0 +1,40 @@
+import { Callout } from 'nextra/components';
+import { Tabs, Tab} from 'nextra-theme-docs';
+
+# Bridge
+
+## HasJob
+Checks if the player has a specific job.
+
+```lua
+Bridge.HasJob(job)
+```
+
+- job: `string`
+- returns: `boolean`
+
+## SetPlayerUniform
+Changes the player's outfit based on the job uniform configuration.
+
+```lua
+Bridge.SetPlayerUniform(toggle)
+```
+
+- toggle: `boolean`
+
+## SpawnVehicle
+Spawns a vehicle at a given location.
+
+```lua
+Bridge.SpawnVehicle(model, coords)
+```
+
+- model: `string`
+- coords: `vector4`
+
+## DeleteVehicle
+Deletes the currently controlled vehicle.
+
+```lua
+Bridge.DeleteVehicle()
+```
