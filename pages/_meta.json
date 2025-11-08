@@ -19,22 +19,11 @@
     },
 
     "index": "Introducing Trusted Studios",
-    "pricing-and-plans": "Pricing & Plans",
-    "control-panel": "Control Panel",
-    "checkout": "Checkout",
-    "products": "Products",
+    "fivem": "FiveM Assets",
 
     "subscribe": {
         "title": "Subscribe @ Trusted Studios ↗",
         "href": "https://www.youtube.com/@TrustedStudios_?sub_confirmation=1",
         "newWindow": true
-    },
-    "developer-docs": {
-        "title": "Developer Documentation ↗",
-        "href": "https://trusted-studios.eu/subscribe",
-        "newWindow": false
-    },
-
-    "faq": "Frequently Asked Questions",
-    "growth-and-success": "Growth & Success"
+    }
 }
