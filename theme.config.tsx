@@ -60,15 +60,12 @@ const config: DocsThemeConfig = {
     useNextSeoProps: useNextSeoProps,
     head: useHead,
     primaryHue: { dark: 200, light: 290 },
-    // sidebar: {
-    //     titleComponent({ title, type}) {
-    //         return (
-    //             <>
-    //                 [PAID] {title}   
-    //             </>
-    //         )
-    //     }
-    // }
+    sidebar: {
+        autoCollapse: true, defaultMenuCollapseLevel: 1, 
+    },
+    components: {
+        
+    }
 }
 
 export default config
