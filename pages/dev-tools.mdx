@@ -1,0 +1,273 @@
+import { Callout } from 'nextra/components';
+
+<Callout type="warning" emoji="️⚠️">
+    Warning: This documentation is a draft version and may be incomplete or subject to changes. This is not an official release. This is AI generated documentation intended to provide a starting point for developers using the Trusted‑Studios FiveM Lib.
+</Callout>
+
+
+> **Projekt:** [https://github.com/Trusted-Studios/lib](https://github.com/Trusted-Studios/lib)
+> **Lizenz:** GPL‑2.0
+> **Status:** Entwurf – API‑Abschnitte sind als Vorlage angelegt und können iterativ ergänzt werden.
+
+---
+
+## 1) Überblick
+
+Die **Trusted‑Studios FiveM Lib** bündelt wiederverwendbare Lua‑Hilfsfunktionen und Bausteine, die in verschiedenen Trusted‑Studios‑Skripten genutzt werden. Ziel ist es, **Produktivität** und **Konsistenz** im Code zu erhöhen.
+
+> Hinweis: Für umfassendere Tooling‑Bedürfnisse empfiehlt Trusted‑Studios zusätzlich die Nutzung von **ox_lib**.
+
+**Highlights**
+
+* Gemeinsame Utility‑Funktionen (Client/Server)
+* Einheitliche Fehler‑ und Debug‑Hilfen
+* Wiederkehrende Patterns (Callbacks/Events, Timer, Tabellen‑Utils, etc.)
+* Web‑Anteil (z. B. Svelte/TypeScript) für optionale UIs/Dev‑Tools
+
+---
+
+## 2) Installation
+
+### 2.1 Ressourcenstruktur
+
+Empfohlene Struktur im FiveM‑Server (Beispiel):
+
+```
+resources/
+  [ts]/
+    ts_lib/           # <— dieses Repository
+    <weitere TS‑Skripte>
+```
+
+### 2.2 Klonen
+
+```bash
+# in den resources‑Ordner wechseln
+cd /path/to/server/resources/[ts]
+
+# Repository klonen (Ordnername frei wählbar, z. B. ts_lib)
+git clone https://github.com/Trusted-Studios/lib ts_lib
+```
+
+### 2.3 Server aktivieren
+
+```cfg
+# server.cfg
+ensure ts_lib
+```
+
+> Falls eure Skripte die Lib als Abhängigkeit benötigen, fügt in ihren `fxmanifest.lua` die Resource als `dependency`/`provide` hinzu.
+
+---
+
+## 3) Nutzung im Script
+
+Da die genaue API je Modul variiert, gibt es zwei typische Nutzungswege:
+
+1. **Exports:**
+
+   ```lua
+   -- Beispiel: Aufruf einer Utility‑Funktion via Export
+   -- exports["ts_lib"].<funktion>(...)
+   ```
+
+2. **Direkter Modulimport:**
+
+   ```lua
+   -- Beispiel: internes require/Import (sofern Modul dies vorsieht)
+   -- local utils = require("@ts_lib/modules/utils")
+   -- utils.doSomething()
+   ```
+
+> Passt `ts_lib` an euren tatsächlichen Ressourcen‑Ordner an. Prüft je Modul, ob es als Export bereitgestellt wird oder über `require`/`dofile` zu integrieren ist.
+
+---
+
+## 4) Projektstruktur (Repo)
+
+```
+lib/
+├─ modules/        # Kern‑Lua‑Module der Lib (Client/Server/Shared)
+├─ web/            # Web‑Client/Dev‑Tools (Svelte/TS)
+├─ .vscode/        # Editor‑Empfehlungen
+├─ fxmanifest.lua  # (falls vorhanden) Resource‑Manifest
+├─ README.md       # Projektüberblick
+└─ LICENSE         # GPL‑2.0
+```
+
+---
+
+## 5) Modul‑Referenz (Vorlage)
+
+> **So verwendest du diesen Abschnitt:** Beim Durchsehen der Dateien in `modules/` trägst du je Modul die Exports/Signaturen und kurze Beispiele ein. Unten findest du eine formatierte Vorlage zum Kopieren.
+
+### 5.1 utils.lua
+
+**Zweck:** Allgemeine Hilfsfunktionen (Tabellen, Strings, Zeit, Mathe, etc.)
+
+**Exports/Signaturen (Beispieleinträge):**
+
+* `utils.tableDeepCopy(tbl)` → `table`
+* `utils.merge(a, b)` → `table`
+* `utils.round(num, decimals)` → `number`
+
+**Beispiel:**
+
+```lua
+local utils = exports["ts_lib"].utils()
+local out = utils.round(3.14159, 2) -- 3.14
+```
+
+---
+
+### 5.2 debug.lua
+
+**Zweck:** Standardisierte Logs/Fehlerausgaben, optional mit Farbformatierung.
+
+**Exports/Signaturen:**
+
+* `debug.info(msg, ctx?)`
+* `debug.warn(msg, ctx?)`
+* `debug.error(msg, ctx?)`
+
+**Beispiel:**
+
+```lua
+exports["ts_lib"].debug().warn("inventory low", {item = "bread"})
+```
+
+---
+
+### 5.3 callbacks.lua / events.lua
+
+**Zweck:** Vereinfachte Client↔Server‑Aufrufe (Promises/await‑Pattern) und Event‑Wrapper.
+
+**Exports/Signaturen:**
+
+* `cb.request(name, payload?) → result`
+* `cb.register(name, handler)`
+* `events.on(eventName, handler)` / `events.emit(eventName, ...)`
+
+**Beispiel:**
+
+```lua
+-- Client\local result = exports["ts_lib"].cb().request("getPlayerData")
+
+-- Server
+exports["ts_lib"].cb().register("getPlayerData", function(src)
+  return { id = src, job = "police" }
+end)
+```
+
+---
+
+### 5.4 notify.lua (optional)
+
+**Zweck:** Abstraktion für Benachrichtigungen (z. B. integrierbar mit ox_lib/ox_notify).
+
+**Exports/Signaturen:**
+
+* `notify.success(text, opts?)`
+* `notify.error(text, opts?)`
+* `notify.info(text, opts?)`
+
+**Beispiel:**
+
+```lua
+exports["ts_lib"].notify().success("Fahrzeug abgeschlossen")
+```
+
+---
+
+### 5.5 weitere Module …
+
+Fülle diesen Abschnitt je nach tatsächlichen Dateien in `modules/`.
+
+---
+
+## 6) Best Practices
+
+* **Single‑Source‑of‑Truth:** Gemeinsam genutzte Konstanten/Config in `shared/` oder zentral im Lib‑Modul ablegen.
+* **Exports bevorzugen:** Eine stabile Export‑API erleichtert Updates.
+* **Namensraum sauber halten:** Präfixe (`ts_`) für globale Events/ConVars/Keys nutzen.
+* **Fehlerbehandlung:** Einheitliche `debug.*`‑Helper verwenden.
+* **Kompatibilität:** Beim Einsatz von ox_lib darauf achten, dass keine Doppel‑Registrierungen/Typkonflikte entstehen.
+
+---
+
+## 7) Beispiel‑Integration in ein TS‑Script
+
+`fxmanifest.lua`
+
+```lua
+fx_version "cerulean"
+game "gta5"
+
+name "my_ts_script"
+description "Beispielscript, das die TS‑Lib nutzt"
+
+-- Stellt sicher, dass die Lib vor diesem Script geladen wird
+dependency "ts_lib"
+
+client_scripts {
+  "client/**/*.lua"
+}
+server_scripts {
+  "server/**/*.lua"
+}
+shared_scripts {
+  "config.lua"
+}
+```
+
+`client/main.lua`
+
+```lua
+local Notify = exports["ts_lib"].notify()
+Notify.info("Hallo von meinem Script!")
+```
+
+---
+
+## 8) Entwicklung & Tests
+
+### 8.1 Lokale Entwicklung
+
+* Repo als eigenes Resource‑Verzeichnis ablegen (`ts_lib`).
+* Testskript erstellen, das Exports/Funktionen aufruft.
+* Konsolen‑Logs (`debug.*`) beobachten.
+
+### 8.2 Versionierung & Changelog
+
+* SemVer‑ähnlich taggen (`vX.Y.Z`).
+* Änderungen im Projekt‑Changelog oder Releases dokumentieren.
+
+---
+
+## 9) Beitrag & Richtlinien
+
+* **Issues/PRs** willkommen (Bugfixes, API‑Verbesserungen, Performance, Doku‑Ergänzungen).
+* **Code‑Stil:** Einheitliche Formatierung (LuaFormatter/Editorconfig), klare Benennungen, kurze Funktionen.
+* **Beispiele & Tests** für neue Exports mitliefern.
+
+---
+
+## 10) Lizenz
+
+Die Lib steht unter **GPL‑2.0**. Bei Nutzung in eigenen Ressourcen die Lizenzbedingungen beachten.
+
+---
+
+## 11) Roadmap (Vorschlag)
+
+* [ ] Vollständige API‑Liste aus `modules/` extrahieren und in Kapitel 5 ergänzen
+* [ ] Konsistente `exports()`‑Schnittstellen je Modul
+* [ ] Optionale ox_lib‑Adapter (Notifier, Progress, Input)
+* [ ] Beispiel‑Playground‑Ressource im Repo (`examples/`)
+* [ ] CI: Lint + minimaler Runtime‑Check (luacheck + basic start)
+
+---
+
+## 12) Changelog (Platzhalter)
+
+* `0.1.0` – Erstveröffentlichung der Doku (Draft)
