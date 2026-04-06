@@ -6,7 +6,7 @@ function useHead() {
     const { asPath } = useRouter();
     const { frontMatter, title } = useConfig();
     const url = `https://docs.trusted-studios.eu${asPath}`;
-    const description = frontMatter.description || "Documentation for Trusted Studios' resources";
+    const description = frontMatter.description || "Documentation for Trusted Studios, a project by Netica.dev";
 
     return (
         <>
@@ -55,7 +55,14 @@ const config: DocsThemeConfig = {
     },
     docsRepositoryBase: 'https://github.com/Trusted-Studios/Trusted-Studios.github.io/blob/main',
     footer: {
-        text: 'Trusted Studios',
+        text: (
+            <>
+                Trusted Studios is a project by{' '}
+                <a href="https://www.netica.dev" target="_blank" rel="noreferrer">
+                    Netica.dev
+                </a>
+            </>
+        ),
     },
     useNextSeoProps: useNextSeoProps,
     head: useHead,

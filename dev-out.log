@@ -1,0 +1,21 @@
+
+> trusted-studios-docs@1.0.0 dev
+> next dev
+
+[32m✔[0m [33mConsole Ninja[0m extension is connected to [33mNext.js[0m, see [36mhttps://tinyurl.com/2vt8jxzw[0m
+  ▲ Next.js 14.2.18
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+   automatically enabled Fast Refresh for 3 custom loaders
+ ✓ Ready in 1748ms
+ ○ Compiling / ...
+ ✓ Compiled / in 8.3s (2214 modules)
+ ✓ Compiled in 488ms (2214 modules)
+ GET / 200 in 9817ms
+ ○ Compiling /yarn ...
+ ✓ Compiled /yarn in 7.2s (2218 modules)
+ GET /yarn 200 in 7306ms
+ GET /yarn 200 in 65ms
+ ✓ Compiled in 322ms (2218 modules)
+ GET /yarn 200 in 67ms
